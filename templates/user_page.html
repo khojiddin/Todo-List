@@ -49,7 +49,7 @@
                     <form method="post" action="{{url_for('update_status', list_url=current_list.url, current_task_id=data.id)}}">
                         <input class="form-check-input me-2" type="checkbox" value="1" onChange="this.form.submit()" aria-label="..." />
                     </form>
-                     <h1>{{data.data}}</h1>
+                     <h2>{{data.data}}</h2>
                 </div>
                     <a href="{{url_for('remove_task', list_url=current_list.url, current_task_id=data.id)}}" data-mdb-toggle="tooltip" title="Remove item">
                         <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
