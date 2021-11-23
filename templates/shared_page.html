@@ -1,0 +1,63 @@
+{% import 'bootstrap/wtf.html' as wtf%}
+{% include 'header.html' %}
+<!--navbar-->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DADDFC; font-size: 1.1rem !important; padding:0 5%;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">{{current_list.name}} </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+</header >
+<!-- tasks -->
+  <div class="container-fluid" style="padding: 0.01% 0 5%;">
+    <div class="row d-flex justify-content-center align-items-center">
+        <form method="post">
+            <input name="data" class="form-control form-control-lg" type="text" placeholder="Write your next task here..." style="background:#C2FFF9; height:4rem">
+            <button name="" type="submit" class="btn btn-primary" id="sendMessageButton" style="display:none;">save</button>
+        </form>
+      <div class="col col-lg-s">
+      <ul class="list-group mb-0">
+        {% for data in shared_data: %}
+
+          {% if not data.status: %}
+
+              <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                <div class="d-flex align-items-center">
+                    <form method="post" action="{{url_for('update_status', list_url=current_list.url, current_task_id=data.id)}}">
+                        <input class="form-check-input me-2" type="checkbox" value="1" onChange="this.form.submit()" aria-label="..." />
+                    </form>
+                     <h1>{{data.data}}</h1>
+                </div>
+                    <a href="{{url_for('remove_task', list_url=current_list.url, current_task_id=data.id)}}" data-mdb-toggle="tooltip" title="Remove item">
+                        <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                    </a>
+              </li>
+
+          {% else: %}
+                 <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2" style="background:#bbb">
+                    <div class="d-flex align-items-center">
+                            <form method="post" action="{{url_for('update_status', list_url=current_list.url, current_task_id=data.id)}}">
+                                <input class="form-check-input me-2" type="checkbox" value="" onChange="this.form.submit()" aria-label="..." checked/>
+                            </form>
+                        <strike><h2>{{data.data}}</h2></strike>
+
+                    </div>
+                        <a href="{{url_for('remove_task', list_url=current_list.url, current_task_id=data.id)}}" data-mdb-toggle="tooltip" title="Remove item">
+                            <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                        </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+          </ul>
+      </div>
+    </div>
+  </div>
+
+<!--NO FOOTER-->
+  <script src="{{url_for('static', filename='jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js')}}"></script>
+    </body>
+</html>

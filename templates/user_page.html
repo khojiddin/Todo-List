@@ -1,0 +1,166 @@
+{% import 'bootstrap/wtf.html' as wtf%}
+{% include 'header.html' %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DADDFC; font-size: 1.1rem !important; padding:0 5%;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href=""> {{current_list.name}}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#geturl"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/24/000000/external-share-interface-kiranshastry-gradient-kiranshastry-2.png"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#create">+ List</a>
+                </li>
+
+                  <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvas" aria-controls="offcanvasExample">show all</a>
+                </li>
+            </ul>
+        </div>
+  </div>
+</nav>
+
+</header >
+
+<!--all task of current list -->
+  <div class="container-fluid" style="padding: 0.01% 0 5%;">
+    <div class="row d-flex justify-content-center align-items-center">
+        <form method="post">
+            <input name="data" class="form-control form-control-lg" type="text" placeholder="Write your next task here..." style="background:#C2FFF9; height:4rem">
+            <button name="" type="submit" class="btn btn-primary" id="sendMessageButton" style="display:none;">save</button>
+        </form>
+      <div class="col col-lg-s">
+      <ul class="list-group mb-0">
+        {% for data in todo_data: %}
+
+          {% if not data.status: %}
+
+              <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                <div class="d-flex align-items-center">
+                    <form method="post" action="{{url_for('update_status', list_url=current_list.url, current_task_id=data.id)}}">
+                        <input class="form-check-input me-2" type="checkbox" value="1" onChange="this.form.submit()" aria-label="..." />
+                    </form>
+                     <h1>{{data.data}}</h1>
+                </div>
+                    <a href="{{url_for('remove_task', list_url=current_list.url, current_task_id=data.id)}}" data-mdb-toggle="tooltip" title="Remove item">
+                        <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                    </a>
+              </li>
+
+          {% else: %}
+
+                 <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2" style="background:#bbb">
+                    <div class="d-flex align-items-center">
+                            <form method="post" action="{{url_for('update_status', list_url=current_list.url, current_task_id=data.id)}}">
+                                <input class="form-check-input me-2" type="checkbox" value="" onChange="this.form.submit()" aria-label="..." checked/>
+                            </form>
+                        <strike><h2>{{data.data}}</h2></strike>
+
+                    </div>
+                        <a href="{{url_for('remove_task', list_url=current_list.url, current_task_id=data.id)}}" data-mdb-toggle="tooltip" title="Remove item">
+                            <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                        </a>
+                </li>
+
+          {% endif %}
+
+            {% endfor %}
+
+          </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+<!--all lists -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="" style="background-color: #0a4275;">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel" style="color:white">All Lists</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+      <div class="offcanvas-body">
+          <div class="list-group list-group-flush">
+              {% for list in todo_lists: %}
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-1">
+                            <div class="d-flex align-items-center">
+                             <a class="link-info" href="{{url_for('user_page', list_url=list.url)}}">{{list.name}}</a>
+                            </div>
+                            <a href="" data-mdb-toggle="tooltip" title="Remove item">
+                                <i class="fas fa-times text-primary"></i>
+                            </a>
+                      </li>
+
+                    </ul>
+              {% endfor %}
+        </div>
+      </div>
+  </div>
+
+<!--create new list-->
+<div class="modal fade" id="create" tabindex="-1" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="background-color: #C2FFF9">
+                  <div class="container" style="padding:5%;">
+                    <h5>
+                         {{ wtf.quick_form(listForm, novalidate=True, button_map={'submit': 'primary'}) }}
+
+                    </h5>
+                    </div>
+
+              </div>
+            </div>
+          </div>
+
+<!--get url of list-->
+<!-- Modal -->
+<div class="modal fade" id="geturl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">List URL</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="input-group input-group-lg">
+              <span class="input-group-text" id="inputGroup-sizing-lg">URL</span>
+              <input value="{{ request.url}}" id="URL" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="myFunction()">Copy URL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--copy to clib board-->
+    <script>
+        function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("URL");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+   /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyText.value);
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
+    </script>
+<!--NO FOOTER-->
+  <script src="{{url_for('static', filename='jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js')}}"></script>
+    </body>
+</html>

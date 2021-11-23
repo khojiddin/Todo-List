@@ -1,0 +1,71 @@
+body{
+font-family: vandana, sans-serif;
+}
+.user_page{
+height:50rem;
+width:100%;
+}
+.home-image{
+width:100%;
+}
+
+.homepage{
+text-align: center;
+padding: 5%;
+}
+
+h1{
+  color: #0a4275;
+  font-size: 4vw;
+  font-family: 'Pacifico', cursive;
+  margin: 5%, auto 0 auto;
+}
+
+h3, h2{
+  color: #105652;
+  font-family: serif;
+}
+h3{
+  color: #FBF3E4;
+  font-family: serif;
+}
+p{
+  color: #105652;
+  line-height: 2;
+}
+
+#homepage {
+color: #FBF3E4;
+background: #105652;
+padding: 5%  15% 5% 0;
+}
+
+.info, .list_settings{
+padding: 5% 10%;
+background: #396EB0;
+}
+.info-data h2, .info-data p{
+color:#EAEAEA;
+padding:0% 5%;
+}
+
+#press{
+  background-color: #0a4275;;
+  padding:5%;
+}
+
+.press-logo{
+  width: 15%;
+  margin: 3% 3% 7%;
+}
+
+.list_settings h1{
+color:#EAEAEA;
+}
+.user_settings{
+padding:10%;
+background:#F7F7F7;
+}
+.user_settings p{
+color: #0a4275;
+}

@@ -1,0 +1,61 @@
+{% import 'bootstrap/wtf.html' as wtf%}
+{% include 'header.html' %}
+<div class="container-fluid homepage">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Got bored carrying paper and pen?</h1>
+            <h2>Make it easy!</h2>
+            <h3>Start here your first to-do list!</h3>
+            {% if not logged_in: %}
+                   <a href="{{url_for('create_public_list')}}" class="link-white">
+                   <div class="d-grid gap-2 col-6 mx-auto" style="padding-top:20%">
+                      <button class="btn btn-success btn-lg btn-rounded" type="button">Create a to-do list</button>
+                    </div>
+                </a>
+            {% else: %}
+                <a href="{{url_for('user_page')}}" class="link-white">
+                   <div class="d-grid gap-2 col-6 mx-auto" style="padding-top:20%">
+                      <button class="btn btn-success btn-lg btn-rounded" type="button">Create a to-do list</button>
+                    </div>
+                </a>
+            {% endif %}
+            <p style="color:gray"> No need to sign up!</p>
+        </div>
+        <div class="col-lg-6">
+            <img class="home-image" src="{{url_for('static', filename='images/hp2.png')}}">
+        </div>
+    </div>
+</div>
+<div class="container-fluid info">
+    <div class="row">
+        <div class="col-lg-4 info-data">
+            <h2>
+                <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-tick-delivery-kiranshastry-gradient-kiranshastry.png"/>
+                No Sign Up.</h2>
+            <h2>Nothing to install.</h2>
+            <p>Browser based so your lists are always synced and you can access them from anywhere.</p>
+        </div>
+        <div class="col-lg-4 info-data">
+            <h2>
+             <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-share-interface-kiranshastry-gradient-kiranshastry.png"/>
+                Share lists with ease.
+            </h2>
+            <p>Copy/paste the URL to share a list. No permissions. No formal invites. It's that simple.</p>
+        </div>
+        <div class="col-lg-4 info-data">
+            <h2>
+                <img src="https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/64/000000/external-device-devices-icongeek26-outline-colour-icongeek26-1.png"/>
+                Access from any device.
+            </h2>
+            <p>Just start adding tasks. Only sign up if you want to save more than one list.</p>
+        </div>
+    </div>
+</div>
+<section id="press">
+    <img class="press-logo" src="static/images/TechCrunch.png" alt="tc-logo">
+    <img class="press-logo" src="static/images/tnw.png" alt="tnw-logo">
+    <img class="press-logo" src="static/images/bizinsider.png" alt="biz-insider-logo">
+    <img class="press-logo" src="static/images/mashable.png" alt="mashable-logo">
+</section>
+
+{% include 'footer.html' %}
