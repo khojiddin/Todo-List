@@ -27,7 +27,13 @@
                   <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{{url_for('register')}}">Sign up!</a>
                 </li>
+                  <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="https://github.com/khojiddin">GitHub</a>
+                </li>
           {% elif logged_in: %}
+                  <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="https://github.com/khojiddin">GitHub</a>
+                </li>
                   <li class="nav-item">
                   <a class="nav-link" href="{{url_for('user_config')}}">{{current_user.email}}</a>
                 </li>
@@ -39,9 +45,7 @@
                       <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/20/000000/external-logout-social-media-basic-1-sbts2018-flat-sbts2018.png"/></a>
                 </li>
           {% endif %}
-                  <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="https://github.com/khojiddin">GitHub</a>
-                </li>
+
 
       </ul>
     </div>
