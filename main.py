@@ -81,7 +81,7 @@ class PublicToDo(db.Model):
     data = db.Column(db.String(250))
 
 
-db.create_all()
+# db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
