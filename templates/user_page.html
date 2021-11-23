@@ -3,7 +3,12 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DADDFC; font-size: 1.1rem !important; padding:0 5%;">
   <div class="container-fluid">
-    <a class="navbar-brand" href=""> {{current_list.name}}</a>
+             <a class="navbar-brand">
+                <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-edit-interface-kiranshastry-gradient-kiranshastry.png"/>
+            </a>
+      <form action="{{url_for('rename_list', list_url=current_list.url)}}" method="post">
+          <input onChange="this.form.submit()" id="ListName" value="{{current_list.name}}" type="text" aria-describedby="inputGroup-sizing-lg" name="ListName" required>
+      </form>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -131,7 +136,7 @@
       <div class="modal-body">
           <div class="input-group input-group-lg">
               <span class="input-group-text" id="inputGroup-sizing-lg">URL</span>
-              <input value="{{ request.url}}" id="URL" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+              <input value="{{ request.url}}" id="URL" type="text" class="form-control" aria-label="" aria-describedby="inputGroup-sizing-lg">
             </div>
       </div>
       <div class="modal-footer">

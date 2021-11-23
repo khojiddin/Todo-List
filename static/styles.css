@@ -50,7 +50,7 @@ padding:0% 5%;
 }
 
 #press{
-  background-color: #0a4275;;
+  background-color: #133986;
   padding:5%;
 }
 
@@ -68,4 +68,13 @@ background:#F7F7F7;
 }
 .user_settings p{
 color: #0a4275;
+}
+#ListName:valid{
+background:#DADDFC!important;
+bored-color:#DADDFC!important;
+color: #0a4275;
+border-style:hidden;
+}
+#ListName:focus{
+background:#fff
 }

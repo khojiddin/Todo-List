@@ -361,6 +361,22 @@ def delete_list():
         return redirect(url_for('home'))
 
 
+@app.route('/rename-list', methods=['POST'])
+def rename_list():
+    new_name = request.form['ListName']
+    list_url = request.args.get('list_url')
+    private_list = ToDoList.query.filter_by(url=list_url).first()
+    public_list = PublicList.query.filter_by(url=list_url).first()
+    if private_list:
+        private_list.name = new_name
+        db.session.commit()
+        return redirect(url_for('user_page', list_url=private_list.url))
+    if public_list:
+        public_list.name = new_name
+        db.session.commit()
+        return redirect(url_for('public_use', list_url=public_list.url))
+
+
 @app.route('/security-control')
 @admin_only
 def security():
