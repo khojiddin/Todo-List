@@ -27,13 +27,7 @@
                   <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{{url_for('register')}}">Sign up!</a>
                 </li>
-                  <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="https://github.com/khojiddin">GitHub</a>
-                </li>
           {% elif logged_in: %}
-                  <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="https://github.com/khojiddin">GitHub</a>
-                </li>
                   <li class="nav-item">
                   <a class="nav-link" href="{{url_for('user_config')}}">{{current_user.email}}</a>
                 </li>
