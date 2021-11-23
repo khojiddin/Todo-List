@@ -38,7 +38,7 @@ class ToDoList(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = relationship('User', back_populates='lists')
 
-    url = db.Column(db.Integer, unique=True)
+    url = db.Column(db.String(250), unique=True)
     name = db.Column(db.String(100))
 
     child = relationship('ToDo', back_populates='parent_list')
@@ -49,7 +49,7 @@ class ToDo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    parent_list_url = db.Column(db.Integer, db.ForeignKey('todolist.url'))
+    parent_list_url = db.Column(db.String(250), db.ForeignKey('todolist.url'))
     parent_list = relationship('ToDoList', back_populates='child')
 
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
