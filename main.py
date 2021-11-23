@@ -340,13 +340,52 @@ def change_password():
 def delete_list():
     list_url = request.args.get('list_url')
     list_to_delete = ToDoList.query.filter_by(url=list_url, user_id=current_user.id).first()
-    list_data = ToDo.query.filter_by(parent_list_url=list_url, owner_id=current_user.id).all()
-    for task in list_data:
-        db.session.delete(task)
+    pb_list_to_delete = PublicList.query.filter_by(url=list_url).first()
+    if list_to_delete:
+        list_data = ToDo.query.filter_by(parent_list_url=list_url, owner_id=current_user.id).all()
+        for task in list_data:
+            db.session.delete(task)
+            db.session.commit()
+        db.session.delete(list_to_delete)
         db.session.commit()
-    db.session.delete(list_to_delete)
-    db.session.commit()
-    return redirect(url_for('user_config'))
+        return redirect(url_for('user_config'))
+    if pb_list_to_delete:
+        pb_list_data = PublicToDo.query.filter_by(ListUrl=list_url).all()
+        for task in pb_list_data:
+            db.session.delete(task)
+            db.session.commit()
+        db.session.delete(pb_list_to_delete)
+        db.session.commit()
+        return redirect(url_for('security'))
+    else:
+        return redirect(url_for('home'))
+
+
+@app.route('/security-control')
+@admin_only
+def security():
+    users = User.query.all()
+    pb_l = PublicList.query.all()
+    return render_template('users.html', logged_in=current_user.is_authenticated, users=users, pb_l=pb_l)
+
+
+@app.route('/remove-bad-users')
+@admin_only
+def remove_bad_user():
+    user_id = request.args.get('user_id')
+    if user_id != 1:
+        bad_user = User.query.filter_by(id=user_id).first()
+        bad_user_lists = ToDoList.query.filter_by(user_id=user_id).all()
+        if bad_user_lists:
+            for list in bad_user_lists:
+                bad_user_tasks = ToDo.query.filter_by(parent_list_url=list.url, owner_id=user_id).all()
+                if bad_user_tasks:
+                    for task in bad_user_tasks:
+                        db.session.delete(task)
+                db.session.delete(list)
+        db.session.delete(bad_user)
+        db.session.commit()
+        return redirect(url_for('security'))
 
 
 if __name__ == "__main__":

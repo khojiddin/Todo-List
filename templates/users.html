@@ -1,0 +1,55 @@
+{% include 'header.html' %}
+
+<section>
+    <div class="container-fluid user_settings">
+    <h1 >Manage Users</h1>
+    <hr>
+         <div class="row">
+          <div class="col-lg-6">
+             {%for user in users[1:]:%}
+              <ul class="list-group">
+                    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-1">
+                        <div class="d-flex align-items-center">
+                            <h2>Email: {{user.email}}</h2>
+                            <br> <h2>Name: {{user.name}}</h2>
+                        </div>
+                        <a href="{{url_for('remove_bad_user', user_id=user.id)}}" data-mdb-toggle="tooltip" title="Remove item">
+                            <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                        </a>
+                  </li>
+              </ul>
+
+                {%endfor%}
+
+  </div>
+
+         </div>
+
+</div>
+</section>
+<section>
+    <div class="container-fluid list_settings">
+        <div class="row">
+            <div class="list-group list-group-flush">
+             <h1>Manage Public Lists</h1><hr>
+                      {% for list in pb_l: %}
+
+                            <ul class="list-group">
+
+                                <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-1">
+                                    <div class="d-flex align-items-center">
+                                        <h3>{{list.name}}</h3>
+                                    </div>
+                                    <a href="{{url_for('delete_list', list_url=list.url)}}" data-mdb-toggle="tooltip" title="Remove item">
+                                        <i class="fas fa-times text-primary"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/32/000000/external-delete-miscellaneous-kiranshastry-gradient-kiranshastry.png"/></i>
+                                    </a>
+                              </li>
+
+                            </ul>
+                      {% endfor %}
+                </div>
+        </div>
+    </div>
+
+</section>
+{% include 'footer.html' %}
